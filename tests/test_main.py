@@ -14,24 +14,24 @@ client = TestClient(app)
 
 class TestRootEndpoint:
     """Test cases for root endpoint"""
-    
+
     def test_root_returns_200(self):
         """Test root endpoint returns 200 OK"""
         response = client.get("/")
         assert response.status_code == 200
-    
+
     def test_root_returns_json(self):
         """Test root endpoint returns JSON"""
         response = client.get("/")
         assert response.headers["content-type"] == "application/json"
-    
+
     def test_root_contains_message(self):
         """Test root endpoint contains welcome message"""
         response = client.get("/")
         data = response.json()
         assert "message" in data
         assert "Welcome" in data["message"]
-    
+
     def test_root_contains_docs_link(self):
         """Test root endpoint contains docs link"""
         response = client.get("/")
@@ -41,31 +41,31 @@ class TestRootEndpoint:
 
 class TestHealthEndpoint:
     """Test cases for health check endpoint"""
-    
+
     def test_health_returns_200(self):
         """Test health endpoint returns 200 OK"""
         response = client.get("/health")
         assert response.status_code == 200
-    
+
     def test_health_returns_healthy_status(self):
         """Test health endpoint returns healthy status"""
         response = client.get("/health")
         data = response.json()
         assert data["status"] == "healthy"
-    
+
     def test_health_contains_timestamp(self):
         """Test health endpoint contains timestamp"""
         response = client.get("/health")
         data = response.json()
         assert "timestamp" in data
         assert data["timestamp"] is not None
-    
+
     def test_health_contains_environment(self):
         """Test health endpoint contains environment"""
         response = client.get("/health")
         data = response.json()
         assert "environment" in data
-    
+
     def test_health_contains_version(self):
         """Test health endpoint contains version"""
         response = client.get("/health")
@@ -76,19 +76,19 @@ class TestHealthEndpoint:
 
 class TestHelloEndpoint:
     """Test cases for hello endpoint"""
-    
+
     def test_hello_returns_200(self):
         """Test hello endpoint returns 200 OK"""
         response = client.get("/hello")
         assert response.status_code == 200
-    
+
     def test_hello_returns_message(self):
         """Test hello endpoint returns hello message"""
         response = client.get("/hello")
         data = response.json()
         assert "message" in data
         assert data["message"] == "Hello, World!"
-    
+
     def test_hello_contains_timestamp(self):
         """Test hello endpoint contains timestamp"""
         response = client.get("/hello")
@@ -98,7 +98,7 @@ class TestHelloEndpoint:
 
 class TestGreetEndpoint:
     """Test cases for greet endpoint"""
-    
+
     def test_greet_returns_200_with_valid_name(self):
         """Test greet endpoint returns 200 with valid name"""
         response = client.post(
@@ -106,7 +106,7 @@ class TestGreetEndpoint:
             json={"name": "Alice"}
         )
         assert response.status_code == 200
-    
+
     def test_greet_returns_personalized_greeting(self):
         """Test greet endpoint returns personalized greeting"""
         response = client.post(
@@ -115,7 +115,7 @@ class TestGreetEndpoint:
         )
         data = response.json()
         assert data["greeting"] == "Hello, Alice!"
-    
+
     def test_greet_handles_different_names(self):
         """Test greet endpoint handles different names"""
         names = ["Bob", "Charlie", "Diana"]
@@ -126,7 +126,7 @@ class TestGreetEndpoint:
             )
             data = response.json()
             assert data["greeting"] == f"Hello, {name}!"
-    
+
     def test_greet_returns_400_for_empty_name(self):
         """Test greet endpoint returns 400 for empty name"""
         response = client.post(
@@ -134,7 +134,7 @@ class TestGreetEndpoint:
             json={"name": ""}
         )
         assert response.status_code == 400
-    
+
     def test_greet_returns_400_for_whitespace_name(self):
         """Test greet endpoint returns 400 for whitespace name"""
         response = client.post(
@@ -142,7 +142,7 @@ class TestGreetEndpoint:
             json={"name": "   "}
         )
         assert response.status_code == 400
-    
+
     def test_greet_returns_422_for_missing_name(self):
         """Test greet endpoint returns 422 for missing name field"""
         response = client.post(
@@ -150,7 +150,7 @@ class TestGreetEndpoint:
             json={}
         )
         assert response.status_code == 422
-    
+
     def test_greet_contains_timestamp(self):
         """Test greet endpoint contains timestamp"""
         response = client.post(
@@ -163,24 +163,24 @@ class TestGreetEndpoint:
 
 class TestInfoEndpoint:
     """Test cases for info endpoint"""
-    
+
     def test_info_returns_200(self):
         """Test info endpoint returns 200 OK"""
         response = client.get("/info")
         assert response.status_code == 200
-    
+
     def test_info_contains_name(self):
         """Test info endpoint contains application name"""
         response = client.get("/info")
         data = response.json()
         assert "name" in data
-    
+
     def test_info_contains_version(self):
         """Test info endpoint contains version"""
         response = client.get("/info")
         data = response.json()
         assert "version" in data
-    
+
     def test_info_contains_endpoints(self):
         """Test info endpoint contains endpoints list"""
         response = client.get("/info")
@@ -192,12 +192,12 @@ class TestInfoEndpoint:
 
 class TestAPIDocumentation:
     """Test cases for API documentation"""
-    
+
     def test_openapi_json_accessible(self):
         """Test OpenAPI JSON is accessible"""
         response = client.get("/openapi.json")
         assert response.status_code == 200
-    
+
     def test_docs_accessible(self):
         """Test Swagger docs are accessible"""
         response = client.get("/docs")
@@ -206,12 +206,12 @@ class TestAPIDocumentation:
 
 class TestErrorHandling:
     """Test cases for error handling"""
-    
+
     def test_404_for_nonexistent_endpoint(self):
         """Test 404 is returned for non-existent endpoints"""
         response = client.get("/nonexistent")
         assert response.status_code == 404
-    
+
     def test_405_for_wrong_method(self):
         """Test 405 is returned for wrong HTTP method"""
         response = client.post("/hello")

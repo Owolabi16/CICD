@@ -78,7 +78,7 @@ async def greet(request: GreetingRequest) -> GreetingResponse:
     """Personalized greeting endpoint"""
     if not request.name or not request.name.strip():
         raise HTTPException(status_code=400, detail="Name cannot be empty")
-    
+
     return GreetingResponse(
         greeting=f"Hello, {request.name}!",
         timestamp=datetime.utcnow().isoformat()
