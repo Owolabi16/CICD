@@ -3,11 +3,12 @@ Hello World API - FastAPI Application
 A simple REST API demonstrating CI/CD pipeline with security scanning
 """
 
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from typing import Dict
 import os
 from datetime import datetime
+from typing import Dict
+
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 
 # Initialize FastAPI app
 app = FastAPI(

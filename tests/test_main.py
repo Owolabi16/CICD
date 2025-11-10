@@ -5,8 +5,8 @@ Using pytest and FastAPI TestClient
 
 import pytest
 from fastapi.testclient import TestClient
-from app.main import app
 
+from app.main import app
 
 # Create test client
 client = TestClient(app)
