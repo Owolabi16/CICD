@@ -12,8 +12,8 @@ exclude =
     *.egg-info
 
 ignore = 
-    E203,  # whitespace before ':'
-    E266,  # too many leading '#' for block comment
-    W503,  # line break before binary operator
+    E203,
+    E266,
+    W503,
 
 max-complexity = 10
