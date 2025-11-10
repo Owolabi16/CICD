@@ -246,7 +246,7 @@ jobs:
     name: Deployment Summary
     runs-on: ubuntu-latest
     needs: [lint, test, build-and-push, security-scan]
-    if: always()
+    if: ${{ needs.lint.result == 'success' && needs.test.result == 'success' && needs.build-and-push.result == 'success' && needs.security-scan.result == 'success' }}
     
     steps:
       - name: Generate deployment summary
