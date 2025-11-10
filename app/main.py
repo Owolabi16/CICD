@@ -86,7 +86,7 @@ async def greet(request: GreetingRequest) -> GreetingResponse:
 
 # Info endpoint
 @app.get("/info")
-async def info() -> Dict[str, any]:
+async def info() -> Dict[str, Any]:
     """Application information endpoint"""
     return {
         "name": "Hello World API",
