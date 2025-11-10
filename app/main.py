@@ -5,7 +5,7 @@ A simple REST API demonstrating CI/CD pipeline with security scanning
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from typing import Dict, List
+from typing import Dict
 import os
 from datetime import datetime
 
