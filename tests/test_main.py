@@ -101,18 +101,12 @@ class TestGreetEndpoint:
 
     def test_greet_returns_200_with_valid_name(self):
         """Test greet endpoint returns 200 with valid name"""
-        response = client.post(
-            "/greet",
-            json={"name": "Alice"}
-        )
+        response = client.post("/greet", json={"name": "Alice"})
         assert response.status_code == 200
 
     def test_greet_returns_personalized_greeting(self):
         """Test greet endpoint returns personalized greeting"""
-        response = client.post(
-            "/greet",
-            json={"name": "Alice"}
-        )
+        response = client.post("/greet", json={"name": "Alice"})
         data = response.json()
         assert data["greeting"] == "Hello, Alice!"
 
@@ -120,43 +114,28 @@ class TestGreetEndpoint:
         """Test greet endpoint handles different names"""
         names = ["Bob", "Charlie", "Diana"]
         for name in names:
-            response = client.post(
-                "/greet",
-                json={"name": name}
-            )
+            response = client.post("/greet", json={"name": name})
             data = response.json()
             assert data["greeting"] == f"Hello, {name}!"
 
     def test_greet_returns_400_for_empty_name(self):
         """Test greet endpoint returns 400 for empty name"""
-        response = client.post(
-            "/greet",
-            json={"name": ""}
-        )
+        response = client.post("/greet", json={"name": ""})
         assert response.status_code == 400
 
     def test_greet_returns_400_for_whitespace_name(self):
         """Test greet endpoint returns 400 for whitespace name"""
-        response = client.post(
-            "/greet",
-            json={"name": "   "}
-        )
+        response = client.post("/greet", json={"name": "   "})
         assert response.status_code == 400
 
     def test_greet_returns_422_for_missing_name(self):
         """Test greet endpoint returns 422 for missing name field"""
-        response = client.post(
-            "/greet",
-            json={}
-        )
+        response = client.post("/greet", json={})
         assert response.status_code == 422
 
     def test_greet_contains_timestamp(self):
         """Test greet endpoint contains timestamp"""
-        response = client.post(
-            "/greet",
-            json={"name": "Test"}
-        )
+        response = client.post("/greet", json={"name": "Test"})
         data = response.json()
         assert "timestamp" in data
 

@@ -13,7 +13,7 @@ from datetime import datetime
 app = FastAPI(
     title="Hello World API",
     description="A simple API demonstrating CI/CD best practices",
-    version="1.0.0"
+    version="1.0.0",
 )
 
 
@@ -46,7 +46,7 @@ async def root() -> Dict[str, str]:
     return {
         "message": "Welcome to Hello World API",
         "docs": "/docs",
-        "health": "/health"
+        "health": "/health",
     }
 
 
@@ -58,7 +58,7 @@ async def health_check() -> HealthResponse:
         status="healthy",
         timestamp=datetime.utcnow().isoformat(),
         environment=os.getenv("ENVIRONMENT", "development"),
-        version="1.0.0"
+        version="1.0.0",
     )
 
 
@@ -67,8 +67,7 @@ async def health_check() -> HealthResponse:
 async def hello() -> HelloResponse:
     """Simple hello world endpoint"""
     return HelloResponse(
-        message="Hello, World!",
-        timestamp=datetime.utcnow().isoformat()
+        message="Hello, World!", timestamp=datetime.utcnow().isoformat()
     )
 
 
@@ -80,8 +79,7 @@ async def greet(request: GreetingRequest) -> GreetingResponse:
         raise HTTPException(status_code=400, detail="Name cannot be empty")
 
     return GreetingResponse(
-        greeting=f"Hello, {request.name}!",
-        timestamp=datetime.utcnow().isoformat()
+        greeting=f"Hello, {request.name}!", timestamp=datetime.utcnow().isoformat()
     )
 
 
@@ -97,12 +95,17 @@ async def info() -> Dict[str, any]:
             {"path": "/", "method": "GET", "description": "Root endpoint"},
             {"path": "/health", "method": "GET", "description": "Health check"},
             {"path": "/hello", "method": "GET", "description": "Simple hello"},
-            {"path": "/greet", "method": "POST", "description": "Personalized greeting"},
-            {"path": "/info", "method": "GET", "description": "API information"}
-        ]
+            {
+                "path": "/greet",
+                "method": "POST",
+                "description": "Personalized greeting",
+            },
+            {"path": "/info", "method": "GET", "description": "API information"},
+        ],
     }
 
 
 if __name__ == "__main__":
     import uvicorn
+
     uvicorn.run(app, host="0.0.0.0", port=8000)
