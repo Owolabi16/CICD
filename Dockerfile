@@ -1,5 +1,5 @@
 # =============================================================================
-# Multi-stage Dockerfile for Hello World API
+# Multi-stage Dockerfile for Hello World API.
 # =============================================================================
 # Stage 1: Builder - Install dependencies
 # Stage 2: Runtime - Minimal production image
